@@ -38,9 +38,9 @@ def carregar_dados():
     return tabela
 
 dados = carregar_dados()
-media_aluno = dados.mean(axis=1)
-media = dados.mean()
-media_turma = media.mean().round(2)*100
+media_aluno = dados.mean(axis=1, numeric_only=True)
+media = dados.mean(numeric_only=True)
+media_turma = media.mean(numeric_only=True).round(2)*100
 conteudos1 = pd.read_excel('habilidades_fund1.xlsx')
 #conteudos1
 #conteudos1["Codigo"]=="EF01LP04"
@@ -72,7 +72,7 @@ fig_geral
 disciplina = st.sidebar.selectbox("Disciplina", ["Português", "Matemática"])
 #dados1
 habilidades = list(dados1.columns.values)[1:(-2)]
-print(habilidades)
+#print(habilidades)
 hab_port = ["Aluno"]
 hab_mat = ["Aluno"]
 for i in range(len(habilidades)):
@@ -85,10 +85,10 @@ dados_port = dados1.loc[:,  hab_port]
 dados_mat = dados1.loc[:,  hab_mat]
 #dados_mat
 
-media = dados_port.mean()
-media_turma_port = media.mean().round(2)*100
-media = dados_mat.mean()
-media_turma_mat = media.mean().round(2)*100
+media = dados_port.mean(numeric_only=True)
+media_turma_port = media.mean(numeric_only=True).round(2)*100
+media = dados_mat.mean(numeric_only=True)
+media_turma_mat = media.mean(numeric_only=True).round(2)*100
 
 df_media_conteudos = pd.DataFrame([['Portugues', media_turma_port ], ['Matemática', media_turma_mat]], columns=['Conteúdos', 'Média'])
 #df_media_conteudos
@@ -105,9 +105,9 @@ if disciplina == 'Português':
 elif disciplina == "Matemática":
     dados_plot = dados_mat
 
-media_aluno = dados_plot.mean(axis=1)
-media = dados_plot.mean()
-media_turma = media.mean().round(2)*100
+media_aluno = dados_plot.mean(axis=1, numeric_only=True)
+media = dados_plot.mean(numeric_only=True)
+media_turma = media.mean(numeric_only=True).round(2)*100
 #conteudos1 = pd.read_excel('habilidades_fund1.xlsx')
 #conteudos1
 #conteudos1["Codigo"]=="EF01LP04"
@@ -118,7 +118,7 @@ dados1 = dados_plot.assign(media=media_aluno.round(2)*100)
 
 colors_dis = np.ones(len(dados1['Aluno'].unique()))
 colors = np.transpose(colors_dis)
-media_disciplina = dados1['media'].mean().round(0)
+media_disciplina = dados1['media'].mean(numeric_only=True).round(0)
 index1_rec = dados1['media'] < media_turma
 colors_dis[index1_rec] = 0
 dados1 = dados1.assign(colors_dis=colors.astype('str'))
@@ -138,11 +138,11 @@ fig_disciplina
 lista = []
 if disciplina == 'Português':
     for i in hab_port[1:]:
-        lista.append([i, dados_port[i].mean().round(2)*100])
+        lista.append([i, dados_port[i].mean(numeric_only=True).round(2)*100])
 
 elif disciplina == "Matemática":
     for i in hab_mat[1:]:
-        lista.append([i, dados_mat[i].mean().round(2)*100])
+        lista.append([i, dados_mat[i].mean(numeric_only=True).round(2)*100])
 
 df_media_conteudos = pd.DataFrame(lista, columns=['Conteúdos', 'Média'])
 
@@ -160,7 +160,7 @@ if disciplina == 'Português':
 elif disciplina == "Matemática":
     conteudo = st.selectbox("Habilidade", hab_mat[1:])
 
-print(conteudo)
+#print(conteudo)
 #conteudos1
 
 texto_habilidade = conteudos1[conteudos1['Codigo']==conteudo]

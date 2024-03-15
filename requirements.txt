@@ -1,0 +1,10 @@
+plotly
+streamlit
+pandas
+openpyxl
+Pillow
+jsonschema
+requests
+plotly_express
+streamlit-analytics
+streamlit-metrics

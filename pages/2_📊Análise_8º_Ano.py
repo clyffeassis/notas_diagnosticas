@@ -34,12 +34,12 @@ def displayPDF(uploaded_file):
 def carregar_dados():
     # tabela = pd.concat(map(pd.read_excel, glob.glob('Resultado_9ano.xlsx')))
     # tabela['ano'] = tabela['ano'].apply(lambda _: str(_))
-    tabela = pd.read_excel('resultados_8_ano.xls')
+    tabela = pd.read_excel('resultados_8_ano.xlsx')
     return tabela
 
 dados = carregar_dados()
 # dados
-conteudos1 = pd.read_excel('Prova_8_ano.xls')
+conteudos1 = pd.read_excel('Prova_8_ano.xlsx')
 # conteudos
 disciplina = st.sidebar.selectbox("Disciplina", conteudos1['Unnamed: 1'].unique())
 dados_filtrados = dados[dados["Learning Objective"]== disciplina]

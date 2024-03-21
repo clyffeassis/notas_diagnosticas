@@ -45,7 +45,7 @@ disciplina = st.sidebar.selectbox("Disciplina", conteudos1['Unnamed: 1'].unique(
 dados_filtrados = dados[dados["Learning Objective"]== disciplina]
 conteudos = conteudos1[conteudos1['Unnamed: 1'] == disciplina ]
 # conteudo = st.sidebar.selectbox("Conteúdo", conteudos['Unnamed: 2'].unique())
-media_geral = dados[dados["Learning Objective"]== 'Resultados']['Percent Score'].mean()
+media_geral = dados[dados["Learning Objective"]== 'Resultados']['Percent Score'].mean(numeric_only=True)
 media_geral = media_geral.round(0)
 
 colors = np.ones(len(dados_filtrados['Alunos'].unique()))
@@ -71,7 +71,7 @@ fig_geral
 lista_disciplinas = []
 for j in conteudos1['Unnamed: 1'].unique():
     dado_disciplina = dados[dados['Learning Objective']==j]
-    media = dado_disciplina['Percent Score'].mean().round(0)
+    media = dado_disciplina['Percent Score'].mean(numeric_only=True).round(0)
     lista_disciplinas.append([j, media])
 
 df_media_disciplinas = pd.DataFrame(lista_disciplinas, columns=['Disciplinas', 'Média'])
@@ -85,7 +85,7 @@ fig_media_disciplinas
 
 colors_dis = np.ones(len(dados_filtrados['Alunos'].unique()))
 colors = np.transpose(colors_dis)
-media_disciplina = dados_filtrados['Percent Score'].mean().round(0)
+media_disciplina = dados_filtrados['Percent Score'].mean(numeric_only=True).round(0)
 index1_rec = dados_filtrados['Percent Score'] < media_disciplina
 colors_dis[index1_rec] = 0
 dados_filtrados = dados_filtrados.assign(colors_dis=colors.astype('str'))
@@ -106,9 +106,9 @@ lista = []
 for i in cont:
     disc_conteudo = f'{disciplina} - {i}'
     print(disc_conteudo)
-    teste = dados[dados["Learning Objective"]== disc_conteudo]['Percent Score'].mean()
+    teste = dados[dados["Learning Objective"]== disc_conteudo]['Percent Score'].mean(numeric_only=True)
     print(teste)
-    lista.append([i, dados[dados["Learning Objective"]== disc_conteudo]['Percent Score'].mean().round(0)])
+    lista.append([i, dados[dados["Learning Objective"]== disc_conteudo]['Percent Score'].mean(numeric_only=True).round(0)])
     
 df_media_conteudos = pd.DataFrame(lista, columns=['Conteúdos', 'Média'])
 
@@ -136,7 +136,7 @@ Alunos = st.selectbox("Alunos", dados["Alunos"].sort_values().unique())
 dados = dados[dados["Alunos"]==Alunos]
 values = conteudos1['Unnamed: 1'].unique()
 # dados = dados[dados["Learning Objective"]==conteudos1['Unnamed: 1'].unique()]
-media_Alunos = dados[dados["Learning Objective"]== 'Resultados']['Percent Score'].mean()
+media_Alunos = dados[dados["Learning Objective"]== 'Resultados']['Percent Score'].mean(numeric_only=True)
 dados = dados.loc[dados["Learning Objective"].isin(values)]
 
 fig_Alunos = px.bar(dados, x="Learning Objective", y="Percent Score", 

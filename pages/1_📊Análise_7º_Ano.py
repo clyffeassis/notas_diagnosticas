@@ -39,7 +39,7 @@ def carregar_dados():
 
 dados = carregar_dados()
 # dados
-conteudos1 = pd.read_excel('Prova_7_ano.xls')
+conteudos1 = pd.read_excel('Prova_7_ano.xlsx')
 # conteudos
 disciplina = st.sidebar.selectbox("Disciplina", conteudos1['Unnamed: 1'].unique())
 dados_filtrados = dados[dados["Learning Objective"]== disciplina]

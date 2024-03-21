@@ -34,7 +34,7 @@ def displayPDF(uploaded_file):
 def carregar_dados():
     # tabela = pd.concat(map(pd.read_excel, glob.glob('Resultado_9ano.xlsx')))
     # tabela['ano'] = tabela['ano'].apply(lambda _: str(_))
-    tabela = pd.read_excel('resultados_7_ano.xls')
+    tabela = pd.read_excel('resultados_7_ano.xlsx')
     return tabela
 
 dados = carregar_dados()
